@@ -1,14 +1,14 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowRight, BarChart3, Globe2, HeartHandshake, Mail, Menu, MessageCircle, Rocket, ShieldCheck, Target, X } from 'lucide-react'
+import { ArrowRight, BarChart3, HeartHandshake, Mail, Menu, MessageCircle, MonitorSmartphone, Rocket, ShieldCheck, SmartphoneNfc, Target, Wrench, X } from 'lucide-react'
 
 const navy = '#061536'
 const blue = '#0050F5'
 const services = [
-  { icon: Globe2, eyebrow: 'PRESENÇA DIGITAL', title: 'Desenvolvimento Web', text: 'Sites e landing pages profissionais, responsivos e focados em conversão, com automação do atendimento via WhatsApp.', type: 'laptop' },
-  { icon: Target, eyebrow: 'INOVAÇÃO NO FÍSICO', title: 'Tecnologia NFC', text: 'Plaquinhas e displays inteligentes para avaliações no Google e experiências digitais no ponto de venda.', type: 'phone' },
-  { icon: ShieldCheck, eyebrow: 'SUPORTE SOB DEMANDA', title: 'Soluções de TI', text: 'Automações, melhorias de processos e suporte digital personalizado para sua empresa operar com mais eficiência.', type: 'chart' },
+  { icon: MonitorSmartphone, eyebrow: 'PRESENÇA DIGITAL', title: 'Desenvolvimento Web', text: 'Sites e landing pages profissionais, responsivos e focados em conversão, com automação do atendimento via WhatsApp.', type: 'laptop' },
+  { icon: SmartphoneNfc, eyebrow: 'INOVAÇÃO NO FÍSICO', title: 'Tecnologia NFC', text: 'Plaquinhas e displays inteligentes para avaliações no Google e experiências digitais no ponto de venda.', type: 'phone' },
+  { icon: Wrench, eyebrow: 'SUPORTE SOB DEMANDA', title: 'Soluções de TI', text: 'Automações, melhorias de processos e suporte digital personalizado para sua empresa operar com mais eficiência.', type: 'chart' },
 ]
 const pillars = [
   [Rocket, 'Agilidade', 'Respostas rápidas e soluções diretas, sem burocracia.'],
