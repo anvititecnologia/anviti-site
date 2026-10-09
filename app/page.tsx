@@ -99,7 +99,7 @@ export default function Page() {
     return () => observer.disconnect()
   }, [])
   return <main>
-    <section className="hero" id="inicio">
+    <section className="hero" id="inicio"><div className="hero-backdrop" aria-hidden="true" />
       <header className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}><div className="container navbar-inner"><a href="#inicio"><Logo light /></a><nav className={open ? 'nav-links nav-open' : 'nav-links'}>{navItems.map(([label, id]) => <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>{label}</a>)}</nav><button className="menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? 'Fechar menu' : 'Abrir menu'}>{open ? <X /> : <Menu />}</button></div></header>
       <div className="container hero-grid"><div className="hero-copy"><p className="eyebrow">ESTRATÉGIA + TECNOLOGIA = RESULTADOS</p><h1>Sua marca<br /><span>mais forte</span><br />no digital.</h1><p className="hero-text">Soluções completas em tecnologia, desenvolvimento web e inovação digital para empresas de qualquer segmento, em todo o Brasil.</p><ButtonLink>Fale com a gente</ButtonLink></div><div className="hero-photo" role="img" aria-label="Mascote da Anviti, um camaleão azul de óculos e camisa da empresa, acenando no escritório" /></div>
     </section>
