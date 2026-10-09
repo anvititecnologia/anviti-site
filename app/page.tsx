@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { ArrowRight, BarChart3, CheckCircle2, Globe2, HeartHandshake, Menu, Megaphone, Rocket, ShieldCheck, Target, X } from 'lucide-react'
+import { ArrowRight, BarChart3, CheckCircle2, Globe2, HeartHandshake, Mail, Menu, Megaphone, MessageCircle, Rocket, ShieldCheck, Target, X } from 'lucide-react'
 
 const navy = '#061536'
 const blue = '#0050F5'
@@ -19,6 +19,9 @@ const pillars = [
 const navItems = [['Início', 'inicio'], ['Serviços', 'servicos'], ['Sobre', 'sobre'], ['Resultados', 'resultados'], ['Contato', 'contato']]
 const results = [['100%', 'atendimento digital'], ['BR', 'cobertura nacional'], ['2 frentes', 'digital e físico'], ['1 parceiro', 'para várias demandas de TI']]
 
+function InstagramIcon({ size = 15 }: { size?: number }) {
+  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
+}
 function Logo({ light = false }: { light?: boolean }) {
   return <div className={`brand-logo ${light ? 'brand-logo-light' : ''}`} aria-label="Anviti Tecnologia"><strong>ANVITI<span>.</span></strong><small>TECNOLOGIA</small></div>
 }
@@ -67,6 +70,6 @@ export default function Page() {
 
     <section className="contact-section" id="contato"><div className="container contact-grid"><div><p className="eyebrow">VAMOS CONVERSAR?</p><h2>O próximo passo<br />pode ser o seu <span>maior resultado.</span></h2><p>Conte com a Anviti para tirar sua ideia do papel, modernizar seu negócio ou resolver sua próxima demanda de tecnologia.</p><div className="contact-details"><a href="https://wa.me/5527995830403" target="_blank" rel="noreferrer">WhatsApp: (27) 99583-0403</a><a href="mailto:anviti.tecnologia@gmail.com">anviti.tecnologia@gmail.com</a><a href="https://instagram.com/anviti.tecnologia" target="_blank" rel="noreferrer">@anviti.tecnologia</a></div></div><form onSubmit={sendContactForm}><label>Nome<input name="nome" required autoComplete="name" placeholder="Como podemos chamar você?" /></label><label>Empresa<input name="empresa" autoComplete="organization" placeholder="Nome da empresa" /></label><label>E-mail<input name="email" required type="email" autoComplete="email" placeholder="seu@email.com" /></label><label>WhatsApp<input name="whatsapp" type="tel" autoComplete="tel" placeholder="(00) 00000-0000" /></label><label>Serviço de interesse<select name="servico" defaultValue=""><option value="" disabled>Selecione uma opção</option><option>Desenvolvimento Web / Landing Page</option><option>Tecnologia NFC</option><option>Automação de processos</option><option>Suporte e soluções de TI</option><option>Outro projeto</option></select></label><label>Mensagem<textarea name="mensagem" rows={4} placeholder="Conte um pouco sobre o seu projeto" /></label><button className="button-primary" type="submit">Solicitar orçamento <ArrowRight size={17} /></button></form></div></section>
 
-    <footer><div className="container footer-top"><Logo light /><div className="footer-links">{navItems.map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}</div><div className="socials"><a href="https://instagram.com/anviti.tecnologia" target="_blank" rel="noreferrer" aria-label="Instagram">ig</a><a href="https://wa.me/5527995830403" target="_blank" rel="noreferrer" aria-label="WhatsApp">wa</a><a href="mailto:anviti.tecnologia@gmail.com" aria-label="E-mail">@</a></div><p className="footer-tag">TECNOLOGIA QUE IMPULSIONA<br />O AMANHÃ.</p></div><div className="container footer-bottom"><span>© 2025 Anviti Tecnologia. Todos os direitos reservados.</span><span>Feito para crescer.</span></div></footer>
+    <footer><div className="container footer-top"><Logo light /><div className="footer-links">{navItems.map(([label, id]) => <a key={id} href={`#${id}`}>{label}</a>)}</div><div className="socials"><a href="https://instagram.com/anviti.tecnologia" target="_blank" rel="noreferrer" aria-label="Instagram"><InstagramIcon /></a><a href="https://wa.me/5527995830403" target="_blank" rel="noreferrer" aria-label="WhatsApp"><MessageCircle size={15} aria-hidden="true" /></a><a href="mailto:anviti.tecnologia@gmail.com" aria-label="E-mail"><Mail size={15} aria-hidden="true" /></a></div><p className="footer-tag">TECNOLOGIA QUE IMPULSIONA<br />O AMANHÃ.</p></div><div className="container footer-bottom"><span>© 2025 Anviti Tecnologia. Todos os direitos reservados.</span><span>Feito para crescer.</span></div></footer>
   </main>
 }
