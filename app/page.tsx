@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowRight, Check, CircleCheck, FileSpreadsheet, HeartHandshake, Mail, Menu, MessageCircle, MonitorSmartphone, Rocket, ShieldCheck, SmartphoneNfc, Target, Workflow, Wrench, X } from 'lucide-react'
+import { ArrowRight, Check, CircleCheck, FileSpreadsheet, Layers, Mail, MapPin, Menu, MessageCircle, MonitorSmartphone, Puzzle, SmartphoneNfc, Workflow, Wrench, X, Zap } from 'lucide-react'
 
 const services = [
   { icon: MonitorSmartphone, eyebrow: 'PRESENÇA DIGITAL', title: 'Desenvolvimento Web', text: 'Sites e landing pages profissionais, responsivos e focados em conversão, com automação do atendimento via WhatsApp.', photo: { src: '/images/site-anviti-laptop.jpg', alt: 'Laptop exibindo o site da Anviti Tecnologia com o mascote camaleão' }, items: ['Sites institucionais e landing pages', 'Layout responsivo para celular', 'Páginas focadas em conversão', 'Atendimento automatizado no WhatsApp'], cta: 'Quero um site', message: 'Olá! Quero um site ou landing page para a minha empresa.' },
@@ -9,10 +9,10 @@ const services = [
   { icon: Wrench, eyebrow: 'SUPORTE SOB DEMANDA', title: 'Soluções de TI', text: 'Automações, melhorias de processos e suporte digital personalizado para sua empresa operar com mais eficiência.', photo: null, items: ['Automação de processos', 'Melhoria de rotinas e fluxos', 'Suporte digital sob demanda', 'Atendimento personalizado'], cta: 'Falar sobre TI', message: 'Olá! Preciso de ajuda com automação, processos ou suporte de TI.' },
 ]
 const pillars = [
-  [Rocket, 'Agilidade', 'Respostas rápidas e soluções diretas, sem burocracia.'],
-  [ShieldCheck, 'Versatilidade técnica', 'Tecnologia, web, automação e suporte em um só parceiro.'],
-  [Target, 'Soluções completas', 'Do digital ao físico, conectamos ideias à realidade.'],
-  [HeartHandshake, 'Atendimento nacional', 'Parceria próxima e 100% digital para todo o Brasil.'],
+  [Zap, 'Agilidade', 'Respostas rápidas e soluções diretas, sem burocracia.'],
+  [Layers, 'Versatilidade técnica', 'Tecnologia, web, automação e suporte em um só parceiro.'],
+  [Puzzle, 'Soluções completas', 'Do digital ao físico, conectamos ideias à realidade.'],
+  [MapPin, 'Atendimento nacional', 'Parceria próxima e 100% digital para todo o Brasil.'],
 ]
 const navItems = [['Início', 'inicio'], ['Serviços', 'servicos'], ['Sobre', 'sobre'], ['Resultados', 'resultados'], ['Contato', 'contato']]
 const results = [['100%', 'atendimento digital'], ['BR', 'cobertura nacional'], ['2 frentes', 'digital e físico'], ['1 parceiro', 'para várias demandas de TI']]
@@ -86,7 +86,7 @@ export default function Page() {
 
     <section className="section services" id="servicos"><div className="container"><div className="section-intro reveal"><div><p className="eyebrow dark">NOSSOS SERVIÇOS</p><h2>Mais visibilidade,<br />mais oportunidades.</h2></div><p>Da presença online à inovação no ponto de venda, a Anviti resolve demandas de tecnologia com agilidade, versatilidade e uma comunicação simples.</p></div><div className="services-grid">{services.map(({ icon: Icon, ...service }, index) => <article className="service-card reveal" key={service.title} style={{ transitionDelay: `${index * 120}ms` }}><div className="icon-box"><Icon size={25} /></div><p className="eyebrow dark">{service.eyebrow}</p><h3>{service.title}</h3><p>{service.text}</p><ul className="service-items">{service.items.map((item) => <li key={item}><Check size={15} aria-hidden="true" />{item}</li>)}</ul><a className="service-cta" href={whatsappUrl(service.message)} target="_blank" rel="noreferrer">{service.cta}<ArrowRight size={16} aria-hidden="true" /></a><div className={`mockup-frame ${service.photo ? 'mockup-frame-photo' : 'mockup-frame-it'}`}>{service.photo ? <img className="mockup-photo" src={service.photo.src} alt={service.photo.alt} loading="lazy" /> : <AutomationMockup />}</div></article>)}</div></div></section>
 
-    <section className="why"><div className="container why-grid"><div className="reveal"><p className="eyebrow">POR QUE ESCOLHER A ANVITI?</p><h2>Tecnologia que<br />impulsiona o seu negócio.</h2></div><div className="pillars">{pillars.map(([Icon, title, text], index) => <div className="pillar reveal" key={title as string} style={{ transitionDelay: `${index * 100}ms` }}><Icon size={30} /><span>0{index + 1}</span><h3>{title as string}</h3><p>{text as string}</p></div>)}</div></div></section>
+    <section className="why"><div className="container why-grid"><div className="reveal"><p className="eyebrow">POR QUE ESCOLHER A ANVITI?</p><h2>Tecnologia que<br />impulsiona o seu negócio.</h2></div><div className="pillars">{pillars.map(([Icon, title, text], index) => <div className="pillar reveal" key={title as string} style={{ transitionDelay: `${index * 100}ms` }}><Icon size={22} /><span>0{index + 1}</span><h3>{title as string}</h3><p>{text as string}</p></div>)}</div></div></section>
 
     <section className="section about" id="sobre"><div className="container about-grid reveal"><div><p className="eyebrow dark">SOBRE A ANVITI</p><h2>Tecnologia, estratégia e criatividade trabalhando juntas.</h2></div><div><p className="about-text">A Anviti Tecnologia ajuda empreendedores, comércios, prestadores de serviços e empresas de qualquer porte a modernizar sua presença, otimizar processos e oferecer experiências melhores aos seus clientes.</p><div className="about-points"><div><b>01</b><strong>ESTRATÉGIA</strong></div><div><b>02</b><strong>TECNOLOGIA</strong></div><div><b>03</b><strong>RESULTADOS</strong></div></div></div></div></section>
 
