@@ -7,7 +7,7 @@ export const services = [
     eyebrow: 'PRESENÇA DIGITAL',
     title: 'Desenvolvimento Web',
     text: 'Sites e landing pages profissionais, responsivos e focados em conversão, com automação do atendimento via WhatsApp.',
-    photo: { src: '/images/site-anviti-laptop.jpg', alt: 'Laptop exibindo o site da Anviti Tecnologia com o mascote camaleão' },
+    photo: { src: '/images/site-anviti-laptop.jpg', webp: '/images/site-anviti-laptop-640.webp 640w, /images/site-anviti-laptop.webp 1200w', alt: 'Laptop exibindo o site da Anviti Tecnologia com o mascote camaleão' },
     items: ['Sites institucionais e landing pages', 'Layout responsivo para celular', 'Páginas focadas em conversão', 'Atendimento automatizado no WhatsApp'],
     cta: 'Quero um site',
     message: 'Olá! Quero um site ou landing page para a minha empresa.',
@@ -17,7 +17,7 @@ export const services = [
     eyebrow: 'INOVAÇÃO NO FÍSICO',
     title: 'Tecnologia NFC',
     text: 'Plaquinhas e displays inteligentes para avaliações no Google e experiências digitais no ponto de venda.',
-    photo: { src: '/images/display-nfc-avaliacao-google.jpg', alt: 'Display de mesa com NFC e QR Code para avaliação no Google, produzido pela Anviti' },
+    photo: { src: '/images/display-nfc-avaliacao-google.jpg', webp: '/images/display-nfc-avaliacao-google-600.webp 600w, /images/display-nfc-avaliacao-google.webp 900w', alt: 'Display de mesa com NFC e QR Code para avaliação no Google, produzido pela Anviti' },
     items: ['Plaquinhas NFC personalizadas', 'Displays para o ponto de venda', 'Acesso direto às avaliações no Google', 'Experiências digitais por aproximação'],
     cta: 'Quero plaquinhas NFC',
     message: 'Olá! Tenho interesse nas plaquinhas e displays NFC da Anviti.',
@@ -82,7 +82,12 @@ export function Services() {
               </ul>
               <a className="service-cta" href={whatsappUrl(service.message)} target="_blank" rel="noreferrer">{service.cta}<ArrowRight size={16} aria-hidden="true" /></a>
               <div className={`mockup-frame ${service.photo ? 'mockup-frame-photo' : 'mockup-frame-it'}`}>
-                {service.photo ? <img className="mockup-photo" src={service.photo.src} alt={service.photo.alt} loading="lazy" /> : <AutomationMockup />}
+                {service.photo ? (
+                  <picture>
+                    <source type="image/webp" srcSet={service.photo.webp} sizes="(max-width: 640px) 100vw, 400px" />
+                    <img className="mockup-photo" src={service.photo.src} alt={service.photo.alt} loading="lazy" decoding="async" />
+                  </picture>
+                ) : <AutomationMockup />}
               </div>
             </article>
           ))}
