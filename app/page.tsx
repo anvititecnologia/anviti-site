@@ -1,10 +1,8 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowRight, BarChart3, Check, HeartHandshake, Mail, Menu, MessageCircle, MonitorSmartphone, Rocket, ShieldCheck, SmartphoneNfc, Target, Wrench, X } from 'lucide-react'
+import { ArrowRight, Check, CircleCheck, FileSpreadsheet, HeartHandshake, Mail, Menu, MessageCircle, MonitorSmartphone, Rocket, ShieldCheck, SmartphoneNfc, Target, Workflow, Wrench, X } from 'lucide-react'
 
-const navy = '#061536'
-const blue = '#0050F5'
 const services = [
   { icon: MonitorSmartphone, eyebrow: 'PRESENÇA DIGITAL', title: 'Desenvolvimento Web', text: 'Sites e landing pages profissionais, responsivos e focados em conversão, com automação do atendimento via WhatsApp.', photo: { src: '/images/site-anviti-laptop.jpg', alt: 'Laptop exibindo o site da Anviti Tecnologia com o mascote camaleão' }, items: ['Sites institucionais e landing pages', 'Layout responsivo para celular', 'Páginas focadas em conversão', 'Atendimento automatizado no WhatsApp'], cta: 'Quero um site', message: 'Olá! Quero um site ou landing page para a minha empresa.' },
   { icon: SmartphoneNfc, eyebrow: 'INOVAÇÃO NO FÍSICO', title: 'Tecnologia NFC', text: 'Plaquinhas e displays inteligentes para avaliações no Google e experiências digitais no ponto de venda.', photo: { src: '/images/display-nfc-avaliacao-google.jpg', alt: 'Display de mesa com NFC e QR Code para avaliação no Google, produzido pela Anviti' }, items: ['Plaquinhas NFC personalizadas', 'Displays para o ponto de venda', 'Acesso direto às avaliações no Google', 'Experiências digitais por aproximação'], cta: 'Quero plaquinhas NFC', message: 'Olá! Tenho interesse nas plaquinhas e displays NFC da Anviti.' },
@@ -47,8 +45,19 @@ function sendContactForm(e: React.FormEvent<HTMLFormElement>) {
   ].filter(Boolean)
   window.open(whatsappUrl(lines.join('\n')), '_blank', 'noopener,noreferrer')
 }
-function ChartMockup() {
-  return <div className="mockup-chart"><div className="chart-head"><span>Processos que<br /><b>impulsionam.</b></span><BarChart3 size={22} /></div><div className="chart-tags"><span>Automação</span><span>Processos</span><span>Suporte</span></div><svg viewBox="0 0 240 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70 C30 58, 43 66, 63 50 S98 58, 119 36 S158 46, 178 22 S214 28, 240 6" fill="none" stroke={blue} strokeWidth="4" /><path d="M0 70 C30 58, 43 66, 63 50 S98 58, 119 36 S158 46, 178 22 S214 28, 240 6 V80 H0Z" fill="rgba(0,80,245,.16)" /></svg></div>
+function AutomationMockup() {
+  const steps = [
+    { icon: MessageCircle, title: 'Novo pedido', detail: 'Recebido no WhatsApp', status: 'Recebido' },
+    { icon: Workflow, title: 'Automação Anviti', detail: 'Organizando os dados', status: 'Ativo', active: true },
+    { icon: FileSpreadsheet, title: 'Registro e aviso', detail: 'Planilha e e-mail', status: 'Concluído' },
+  ]
+  return <div className="it-mockup" aria-hidden="true">
+    <div className="it-window">
+      <div className="it-window-bar"><span /><span /><span /><b>Fluxo de atendimento</b></div>
+      <ol className="it-flow">{steps.map(({ icon: Icon, title, detail, status, active }) => <li key={title} className={active ? 'is-active' : undefined}><i><Icon size={15} /></i><div><strong>{title}</strong><small>{detail}</small></div><em>{status}</em></li>)}</ol>
+    </div>
+    <div className="it-toast"><CircleCheck size={18} /><div><strong>Chamado resolvido</strong><small>Suporte de TI</small></div></div>
+  </div>
 }
 
 export default function Page() {
@@ -75,7 +84,7 @@ export default function Page() {
       <div className="container hero-grid"><div className="hero-copy"><p className="eyebrow">ESTRATÉGIA + TECNOLOGIA = RESULTADOS</p><h1>Sua marca<br /><span>mais forte</span><br />no digital.</h1><p className="hero-text">Soluções completas em tecnologia, desenvolvimento web e inovação digital para empresas de qualquer segmento, em todo o Brasil.</p><ButtonLink>Fale com a gente</ButtonLink></div><div className="hero-photo" role="img" aria-label="Mascote da Anviti, um camaleão azul de óculos e camisa da empresa, acenando no escritório" /></div>
     </section>
 
-    <section className="section services" id="servicos"><div className="container"><div className="section-intro reveal"><div><p className="eyebrow dark">NOSSOS SERVIÇOS</p><h2>Mais visibilidade,<br />mais oportunidades.</h2></div><p>Da presença online à inovação no ponto de venda, a Anviti resolve demandas de tecnologia com agilidade, versatilidade e uma comunicação simples.</p></div><div className="services-grid">{services.map(({ icon: Icon, ...service }, index) => <article className="service-card reveal" key={service.title} style={{ transitionDelay: `${index * 120}ms` }}><div className="icon-box"><Icon size={25} /></div><p className="eyebrow dark">{service.eyebrow}</p><h3>{service.title}</h3><p>{service.text}</p><ul className="service-items">{service.items.map((item) => <li key={item}><Check size={15} aria-hidden="true" />{item}</li>)}</ul><a className="service-cta" href={whatsappUrl(service.message)} target="_blank" rel="noreferrer">{service.cta}<ArrowRight size={16} aria-hidden="true" /></a><div className={`mockup-frame ${service.photo ? 'mockup-frame-photo' : 'mockup-frame-chart'}`}>{service.photo ? <img className="mockup-photo" src={service.photo.src} alt={service.photo.alt} loading="lazy" /> : <ChartMockup />}</div></article>)}</div></div></section>
+    <section className="section services" id="servicos"><div className="container"><div className="section-intro reveal"><div><p className="eyebrow dark">NOSSOS SERVIÇOS</p><h2>Mais visibilidade,<br />mais oportunidades.</h2></div><p>Da presença online à inovação no ponto de venda, a Anviti resolve demandas de tecnologia com agilidade, versatilidade e uma comunicação simples.</p></div><div className="services-grid">{services.map(({ icon: Icon, ...service }, index) => <article className="service-card reveal" key={service.title} style={{ transitionDelay: `${index * 120}ms` }}><div className="icon-box"><Icon size={25} /></div><p className="eyebrow dark">{service.eyebrow}</p><h3>{service.title}</h3><p>{service.text}</p><ul className="service-items">{service.items.map((item) => <li key={item}><Check size={15} aria-hidden="true" />{item}</li>)}</ul><a className="service-cta" href={whatsappUrl(service.message)} target="_blank" rel="noreferrer">{service.cta}<ArrowRight size={16} aria-hidden="true" /></a><div className={`mockup-frame ${service.photo ? 'mockup-frame-photo' : 'mockup-frame-it'}`}>{service.photo ? <img className="mockup-photo" src={service.photo.src} alt={service.photo.alt} loading="lazy" /> : <AutomationMockup />}</div></article>)}</div></div></section>
 
     <section className="why"><div className="container why-grid"><div className="reveal"><p className="eyebrow">POR QUE ESCOLHER A ANVITI?</p><h2>Tecnologia que<br />impulsiona o seu negócio.</h2></div><div className="pillars">{pillars.map(([Icon, title, text], index) => <div className="pillar reveal" key={title as string} style={{ transitionDelay: `${index * 100}ms` }}><Icon size={30} /><span>0{index + 1}</span><h3>{title as string}</h3><p>{text as string}</p></div>)}</div></div></section>
 
