@@ -18,11 +18,11 @@ export function Footer() {
         </div>
         <nav className="footer-col" aria-label="Navegação do rodapé">
           <p className="footer-heading">Navegação</p>
-          <ul>{navItems.map(([label, id]) => <li key={id}><a href={`#${id}`}>{label}</a></li>)}</ul>
+          <ul>{navItems.map(([label, id]) => <li key={id}><a href={`/#${id}`}>{label}</a></li>)}</ul>
         </nav>
         <div className="footer-col">
           <p className="footer-heading">Serviços</p>
-          <ul>{services.map((service) => <li key={service.title}><a href="#servicos">{service.title}</a></li>)}</ul>
+          <ul>{services.map((service) => <li key={service.title}><a href="/#servicos">{service.title}</a></li>)}</ul>
         </div>
         <div className="footer-col">
           <p className="footer-heading">Contato</p>
@@ -35,9 +35,9 @@ export function Footer() {
         </div>
       </div>
       <div className="container footer-bottom">
-        <span>© {new Date().getFullYear()} Anviti Tecnologia. Todos os direitos reservados.</span>
+        <span>© {new Date().getFullYear()} Anviti Tecnologia. Todos os direitos reservados. <a className="footer-legal" href="/politica-de-privacidade">Política de Privacidade</a></span>
         <span className="footer-slogan">Tecnologia que impulsiona o amanhã.</span>
-        <a className="back-to-top" href="#inicio"><ArrowUp size={14} aria-hidden="true" />Voltar ao topo</a>
+        <a className="back-to-top" href="#"><ArrowUp size={14} aria-hidden="true" />Voltar ao topo</a>
       </div>
     </footer>
   )

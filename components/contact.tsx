@@ -60,7 +60,7 @@ export function Contact() {
           <label className="field-full">Mensagem<textarea name="mensagem" rows={4} placeholder="Conte um pouco sobre o seu projeto" /></label>
           <div className="form-submit">
             <button className="button-primary" type="submit">Solicitar orçamento <ArrowRight size={17} aria-hidden="true" /></button>
-            <p><MessageCircle size={15} aria-hidden="true" />Você será direcionado ao WhatsApp com a mensagem pronta.</p>
+            <p><MessageCircle size={15} aria-hidden="true" />Você será direcionado ao WhatsApp com a mensagem pronta. Veja nossa <a href="/politica-de-privacidade">Política de Privacidade</a>.</p>
           </div>
         </form>
       </div>
