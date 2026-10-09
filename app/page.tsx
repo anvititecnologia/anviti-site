@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowRight, BarChart3, CheckCircle2, Globe2, HeartHandshake, Mail, Menu, Megaphone, MessageCircle, Rocket, ShieldCheck, Target, X } from 'lucide-react'
+import { ArrowRight, BarChart3, Globe2, HeartHandshake, Mail, Menu, MessageCircle, Rocket, ShieldCheck, Target, X } from 'lucide-react'
 
 const navy = '#061536'
 const blue = '#0050F5'
