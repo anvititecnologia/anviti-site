@@ -17,11 +17,11 @@ const pillars = [
 type Testimonial = { quote: string; name: string; company: string; service: string }
 // Depoimentos reais de clientes. Enquanto estiver vazia, o site publicado esconde a seção e o link do menu.
 const testimonials: Testimonial[] = []
-// Exemplos de layout, exibidos só no ambiente de desenvolvimento (localhost). Nunca vão para o site publicado.
+// Exemplos fictícios de layout, exibidos só no ambiente de desenvolvimento (localhost). Nunca vão para o site publicado.
 const previewTestimonials: Testimonial[] = [
-  { quote: 'Espaço para o depoimento real de um cliente de sites: como era antes, o que a Anviti entregou e o resultado percebido.', name: 'Nome do cliente', company: 'Empresa do cliente', service: 'Desenvolvimento Web' },
-  { quote: 'Espaço para o depoimento real de um cliente de NFC: como os clientes passaram a avaliar a empresa no Google.', name: 'Nome do cliente', company: 'Empresa do cliente', service: 'Tecnologia NFC' },
-  { quote: 'Espaço para o depoimento real de um cliente de TI: qual problema foi resolvido e como ficou o dia a dia.', name: 'Nome do cliente', company: 'Empresa do cliente', service: 'Soluções de TI' },
+  { quote: 'O site ficou rápido, bonito e funciona muito bem no celular. Agora os clientes chegam pelo WhatsApp já sabendo o que querem, e o atendimento ficou bem mais organizado.', name: 'Mariana Duarte', company: 'Studio Bella Forma', service: 'Desenvolvimento Web' },
+  { quote: 'Colocamos o display NFC no balcão e as avaliações no Google começaram a aparecer na mesma semana. É só aproximar o celular, o cliente não precisa procurar nada.', name: 'Rafael Monteiro', company: 'Café da Praça', service: 'Tecnologia NFC' },
+  { quote: 'Automatizaram o registro dos pedidos que chegavam pelo WhatsApp e hoje a equipe não perde mais tempo copiando dados em planilha. Atendimento rápido e sem complicação.', name: 'Carla Nogueira', company: 'Nogueira Distribuidora', service: 'Soluções de TI' },
 ]
 const isPreview = testimonials.length === 0 && process.env.NODE_ENV === 'development'
 const shownTestimonials = testimonials.length ? testimonials : isPreview ? previewTestimonials : []
