@@ -5,6 +5,8 @@
 :root { --navy:#061536; --blue:#0050F5; --white:#FFFFFF; --light:#F4F5F7; --graphite:#333A45; --line:#dfe4ec; }
 * { box-sizing:border-box; }
 html { scroll-behavior:smooth; }
+/* Em telas de computador o layout é exibido a 80%, a escala em que o design foi aprovado. */
+@media (min-width:1024px) { html { zoom:.8; } }
 body { margin:0; background:var(--white); color:var(--graphite); font-family:var(--font-inter), Arial, sans-serif; }
 a { color:inherit; text-decoration:none; }
 .container { width:min(1180px, calc(100% - 64px)); margin-inline:auto; }
