@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { ArrowLeft } from 'lucide-react'
 import { Logo } from '@/components/brand'
+import { CleanAnchorLinks } from '@/components/clean-anchor-links'
 import { Footer } from '@/components/footer'
 import { contact } from '@/lib/site'
 
@@ -69,6 +70,7 @@ export default function PrivacyPolicyPage() {
         </article>
       </main>
       <Footer />
+      <CleanAnchorLinks />
     </>
   )
 }

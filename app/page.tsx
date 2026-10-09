@@ -1,5 +1,6 @@
 import { MessageCircle } from 'lucide-react'
 import { About } from '@/components/about'
+import { CleanAnchorLinks } from '@/components/clean-anchor-links'
 import { Contact } from '@/components/contact'
 import { Faq } from '@/components/faq'
 import { Footer } from '@/components/footer'
@@ -27,6 +28,7 @@ export default function Page() {
       </a>
       <Footer />
       <RevealOnScroll />
+      <CleanAnchorLinks />
     </main>
   )
 }
