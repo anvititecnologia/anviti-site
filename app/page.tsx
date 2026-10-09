@@ -1,143 +1,30 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-import { ArrowRight, ArrowUp, Briefcase, Building2, Check, CircleCheck, CodeXml, Compass, Cpu, FileSpreadsheet, FileText, Layers, Lightbulb, Mail, MapPin, Menu, MessageCircle, MessagesSquare, MonitorSmartphone, Puzzle, Rocket, SmartphoneNfc, Store, TrendingUp, Workflow, Wrench, X, Zap } from 'lucide-react'
-
-const services = [
-  { icon: MonitorSmartphone, eyebrow: 'PRESENÇA DIGITAL', title: 'Desenvolvimento Web', text: 'Sites e landing pages profissionais, responsivos e focados em conversão, com automação do atendimento via WhatsApp.', photo: { src: '/images/site-anviti-laptop.jpg', alt: 'Laptop exibindo o site da Anviti Tecnologia com o mascote camaleão' }, items: ['Sites institucionais e landing pages', 'Layout responsivo para celular', 'Páginas focadas em conversão', 'Atendimento automatizado no WhatsApp'], cta: 'Quero um site', message: 'Olá! Quero um site ou landing page para a minha empresa.' },
-  { icon: SmartphoneNfc, eyebrow: 'INOVAÇÃO NO FÍSICO', title: 'Tecnologia NFC', text: 'Plaquinhas e displays inteligentes para avaliações no Google e experiências digitais no ponto de venda.', photo: { src: '/images/display-nfc-avaliacao-google.jpg', alt: 'Display de mesa com NFC e QR Code para avaliação no Google, produzido pela Anviti' }, items: ['Plaquinhas NFC personalizadas', 'Displays para o ponto de venda', 'Acesso direto às avaliações no Google', 'Experiências digitais por aproximação'], cta: 'Quero plaquinhas NFC', message: 'Olá! Tenho interesse nas plaquinhas e displays NFC da Anviti.' },
-  { icon: Wrench, eyebrow: 'SUPORTE SOB DEMANDA', title: 'Soluções de TI', text: 'Automações, melhorias de processos e suporte digital personalizado para sua empresa operar com mais eficiência.', photo: null, items: ['Automação de processos', 'Melhoria de rotinas e fluxos', 'Suporte digital sob demanda', 'Atendimento personalizado'], cta: 'Falar sobre TI', message: 'Olá! Preciso de ajuda com automação, processos ou suporte de TI.' },
-]
-const pillars = [
-  [Zap, 'Agilidade', 'Respostas rápidas e soluções diretas, sem burocracia.'],
-  [Layers, 'Versatilidade técnica', 'Tecnologia, web, automação e suporte em um só parceiro.'],
-  [Puzzle, 'Soluções completas', 'Do digital ao físico, conectamos ideias à realidade.'],
-  [MapPin, 'Atendimento nacional', 'Parceria próxima e 100% digital para todo o Brasil.'],
-]
-const audience = [[Lightbulb, 'Empreendedores'], [Store, 'Comércios'], [Briefcase, 'Prestadores de serviços'], [Building2, 'Empresas de todos os portes']] as const
-const aboutPoints = [
-  [Compass, 'Estratégia', 'Entendemos o seu negócio antes de propor qualquer solução.'],
-  [Cpu, 'Tecnologia', 'Ferramentas modernas, escolhidas para o momento da sua empresa.'],
-  [TrendingUp, 'Resultados', 'Soluções pensadas para fazer diferença no dia a dia.'],
-] as const
-const processSteps = [
-  [MessagesSquare, 'Conversa', 'Você conta a sua necessidade pelo WhatsApp e a gente entende o seu negócio.'],
-  [FileText, 'Proposta', 'Enviamos uma solução clara, com escopo, prazo e investimento definidos.'],
-  [CodeXml, 'Desenvolvimento', 'Criamos e configuramos tudo, com você acompanhando cada etapa.'],
-  [Rocket, 'Entrega e suporte', 'Colocamos no ar, explicamos como usar e seguimos por perto para ajustes.'],
-] as const
-const navItems = [['Início', 'inicio'], ['Serviços', 'servicos'], ['Sobre', 'sobre'], ['Contato', 'contato']]
-
-function InstagramIcon({ size = 15 }: { size?: number }) {
-  return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
-}
-function Logo({ light = false }: { light?: boolean }) {
-  return <div className={`brand-logo ${light ? 'brand-logo-light' : ''}`} aria-label="Anviti Tecnologia"><strong>ANVITI<span>.</span></strong><small>TECNOLOGIA</small></div>
-}
-function ButtonLink({ children, href = '#contato' }: { children: React.ReactNode; href?: string }) {
-  return <a className="button-primary" href={href}>{children}<ArrowRight size={17} aria-hidden="true" /></a>
-}
-function whatsappUrl(message: string) {
-  return `https://wa.me/5527995830403?text=${encodeURIComponent(message)}`
-}
-function openQuoteWhatsApp() {
-  window.open(whatsappUrl('Olá, gostaria de solicitar um orçamento para um projeto com a Anviti Tecnologia.'), '_blank', 'noopener,noreferrer')
-}
-function formatPhone(value: string) {
-  let digits = value.replace(/\D/g, '')
-  if (digits.length > 11 && digits.startsWith('55')) digits = digits.slice(2)
-  digits = digits.slice(0, 11)
-  if (digits.length <= 2) return digits.length ? `(${digits}` : ''
-  if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`
-  if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`
-  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`
-}
-function sendContactForm(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault()
-  const data = new FormData(e.currentTarget)
-  const field = (name: string) => String(data.get(name) ?? '').trim()
-  const lines = [
-    `Olá, sou ${field('nome') || 'um cliente'}${field('empresa') ? ` da empresa ${field('empresa')}` : ''}.`,
-    `Tenho interesse em: ${field('servico') || 'uma solução de tecnologia'}.`,
-    field('mensagem'),
-    `E-mail: ${field('email')}`,
-    field('whatsapp') && `WhatsApp: ${field('whatsapp')}`,
-  ].filter(Boolean)
-  window.open(whatsappUrl(lines.join('\n')), '_blank', 'noopener,noreferrer')
-}
-function AutomationMockup() {
-  const steps = [
-    { icon: MessageCircle, title: 'Novo pedido', detail: 'Recebido no WhatsApp', status: 'Recebido' },
-    { icon: Workflow, title: 'Automação Anviti', detail: 'Organizando os dados', status: 'Ativo', active: true },
-    { icon: FileSpreadsheet, title: 'Registro e aviso', detail: 'Planilha e e-mail', status: 'Concluído' },
-  ]
-  return <div className="it-mockup" aria-hidden="true">
-    <div className="it-window">
-      <div className="it-window-bar"><span /><span /><span /><b>Fluxo de atendimento</b></div>
-      <ol className="it-flow">{steps.map(({ icon: Icon, title, detail, status, active }) => <li key={title} className={active ? 'is-active' : undefined}><i><Icon size={15} /></i><div><strong>{title}</strong><small>{detail}</small></div><em>{status}</em></li>)}</ol>
-    </div>
-    <div className="it-toast"><CircleCheck size={18} /><div><strong>Chamado resolvido</strong><small>Suporte de TI</small></div></div>
-  </div>
-}
+import { MessageCircle } from 'lucide-react'
+import { About } from '@/components/about'
+import { Contact } from '@/components/contact'
+import { Footer } from '@/components/footer'
+import { Header } from '@/components/header'
+import { Hero } from '@/components/hero'
+import { Process } from '@/components/process'
+import { RevealOnScroll } from '@/components/reveal-on-scroll'
+import { Services } from '@/components/services'
+import { Why } from '@/components/why'
+import { whatsappUrl } from '@/lib/site'
 
 export default function Page() {
-  const [open, setOpen] = useState(false)
-  const [scrolled, setScrolled] = useState(false)
-  const [active, setActive] = useState('inicio')
-  useEffect(() => {
-    if (!open) return
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
-    const closeOnDesktop = () => { if (window.innerWidth > 640) setOpen(false) }
-    document.body.style.overflow = 'hidden'
-    window.addEventListener('keydown', onKey)
-    window.addEventListener('resize', closeOnDesktop)
-    return () => {
-      document.body.style.overflow = ''
-      window.removeEventListener('keydown', onKey)
-      window.removeEventListener('resize', closeOnDesktop)
-    }
-  }, [open])
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
-    onScroll()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-  useEffect(() => {
-    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
-      if (entry.isIntersecting) setActive(entry.target.id)
-    }), { rootMargin: '-45% 0px -50% 0px' })
-    navItems.forEach(([, id]) => { const section = document.getElementById(id); if (section) observer.observe(section) })
-    return () => observer.disconnect()
-  }, [])
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
-      if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target) }
-    }), { threshold: 0.15, rootMargin: '0px 0px -40px 0px' })
-    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
-    document.documentElement.classList.add('reveal-ready')
-    return () => observer.disconnect()
-  }, [])
-  return <main>
-    <header className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>{open && <div className="nav-backdrop" onClick={() => setOpen(false)} aria-hidden="true" />}<div className="container navbar-inner"><a className="navbar-brand" href="#inicio" aria-label="Anviti Tecnologia, voltar ao início"><Logo light /></a><nav id="menu-principal" className={open ? 'nav-links nav-open' : 'nav-links'}>{navItems.map(([label, id]) => <a key={id} href={`#${id}`} className={active === id ? 'is-active' : undefined} aria-current={active === id ? 'true' : undefined} onClick={() => { setActive(id); setOpen(false) }}>{label}</a>)}</nav><button className="menu-toggle" type="button" aria-expanded={open} aria-controls="menu-principal" onClick={() => setOpen(!open)} aria-label={open ? 'Fechar menu' : 'Abrir menu'}>{open ? <X /> : <Menu />}</button></div></header>
-    <section className="hero" id="inicio"><div className="hero-backdrop" aria-hidden="true" />
-      
-      <div className="container hero-grid"><div className="hero-copy"><p className="eyebrow">ESTRATÉGIA + TECNOLOGIA = RESULTADOS</p><h1>Sua marca<br /><span>mais forte</span><br />no digital.</h1><p className="hero-text">Soluções completas em tecnologia, desenvolvimento web e inovação digital para empresas de qualquer segmento, em todo o Brasil.</p><ButtonLink>Fale com a gente</ButtonLink></div><div className="hero-photo" role="img" aria-label="Mascote da Anviti, um camaleão azul de óculos e camisa da empresa, acenando no escritório" /></div>
-    </section>
-
-    <section className="section services" id="servicos"><div className="container"><div className="section-intro reveal"><div><p className="eyebrow dark">NOSSOS SERVIÇOS</p><h2>Mais visibilidade,<br />mais oportunidades.</h2></div><p>Da presença online à inovação no ponto de venda, a Anviti resolve demandas de tecnologia com agilidade, versatilidade e uma comunicação simples.</p></div><div className="services-grid">{services.map(({ icon: Icon, ...service }, index) => <article className="service-card reveal" key={service.title} style={{ transitionDelay: `${index * 120}ms` }}><div className="icon-box"><Icon size={25} /></div><p className="eyebrow dark">{service.eyebrow}</p><h3>{service.title}</h3><p>{service.text}</p><ul className="service-items">{service.items.map((item) => <li key={item}><Check size={15} aria-hidden="true" />{item}</li>)}</ul><a className="service-cta" href={whatsappUrl(service.message)} target="_blank" rel="noreferrer">{service.cta}<ArrowRight size={16} aria-hidden="true" /></a><div className={`mockup-frame ${service.photo ? 'mockup-frame-photo' : 'mockup-frame-it'}`}>{service.photo ? <img className="mockup-photo" src={service.photo.src} alt={service.photo.alt} loading="lazy" /> : <AutomationMockup />}</div></article>)}</div></div></section>
-
-    <section className="why"><div className="container why-grid"><div className="reveal"><p className="eyebrow">POR QUE ESCOLHER A ANVITI?</p><h2>Tecnologia que<br />impulsiona o seu negócio.</h2><a className="button-primary why-cta" href={whatsappUrl('Olá! Quero conversar sobre uma solução de tecnologia para o meu negócio.')} target="_blank" rel="noreferrer">Fale com a gente <ArrowRight size={17} aria-hidden="true" /></a></div><div className="pillars">{pillars.map(([Icon, title, text], index) => <div className="pillar reveal" key={title as string} style={{ transitionDelay: `${index * 100}ms` }}><Icon size={22} /><h3>{title as string}</h3><p>{text as string}</p></div>)}</div></div></section>
-
-    <section className="section about" id="sobre"><div className="container about-grid reveal"><div><p className="eyebrow dark">SOBRE A ANVITI</p><h2>Tecnologia, estratégia e criatividade trabalhando juntas.</h2><div className="about-audience"><span>Para quem é</span><ul>{audience.map(([Icon, label]) => <li key={label}><Icon size={16} aria-hidden="true" />{label}</li>)}</ul></div></div><div><p className="about-text">A Anviti Tecnologia ajuda empreendedores, comércios, prestadores de serviços e empresas de qualquer porte a modernizar sua presença, otimizar processos e oferecer experiências melhores aos seus clientes.</p><div className="about-points">{aboutPoints.map(([Icon, title, text]) => <div key={title}><span className="about-point-icon"><Icon size={20} aria-hidden="true" /></span><strong>{title}</strong><p>{text}</p></div>)}</div></div></div></section>
-
-    <section className="section process" id="como-trabalhamos"><div className="container"><div className="center-heading reveal"><p className="eyebrow dark">COMO TRABALHAMOS</p><h2>Do primeiro contato à entrega.</h2><p className="process-intro">Um processo simples e transparente, para você saber exatamente o que acontece em cada etapa.</p></div><ol className="process-grid">{processSteps.map(([Icon, title, text], index) => <li className="process-step reveal" key={title} style={{ transitionDelay: `${index * 100}ms` }}><div className="process-top"><span className="process-icon"><Icon size={22} aria-hidden="true" /></span><span className="process-number">0{index + 1}</span></div><h3>{title}</h3><p>{text}</p></li>)}</ol><div className="process-cta reveal"><a className="button-primary" href={whatsappUrl('Olá! Quero começar um projeto com a Anviti.')} target="_blank" rel="noreferrer">Começar pelo WhatsApp <ArrowRight size={17} aria-hidden="true" /></a></div></div></section>
-
-    <section className="contact-section" id="contato"><div className="container contact-grid reveal"><div><p className="eyebrow">VAMOS CONVERSAR?</p><h2>O próximo passo<br />pode ser o seu <span>maior resultado.</span></h2><p>Conte com a Anviti para tirar sua ideia do papel, modernizar seu negócio ou resolver sua próxima demanda de tecnologia.</p><ul className="contact-details"><li><a href="https://wa.me/5527995830403" target="_blank" rel="noreferrer"><span className="contact-icon"><MessageCircle size={18} aria-hidden="true" /></span><span><small>WhatsApp</small><strong>(27) 99583-0403</strong></span></a></li><li><a href="mailto:anviti.tecnologia@gmail.com"><span className="contact-icon"><Mail size={18} aria-hidden="true" /></span><span><small>E-mail</small><strong>anviti.tecnologia@gmail.com</strong></span></a></li><li><a href="https://instagram.com/anviti.tecnologia" target="_blank" rel="noreferrer"><span className="contact-icon"><InstagramIcon size={18} /></span><span><small>Instagram</small><strong>@anviti.tecnologia</strong></span></a></li></ul></div><form onSubmit={sendContactForm}><label>Nome<input name="nome" required autoComplete="name" placeholder="Seu nome" /></label><label>Empresa<input name="empresa" autoComplete="organization" placeholder="Nome da empresa" /></label><label>E-mail<input name="email" required type="email" autoComplete="email" placeholder="seu@email.com" /></label><label>WhatsApp<input name="whatsapp" type="tel" inputMode="numeric" autoComplete="tel" maxLength={15} placeholder="(00) 00000-0000" onChange={(e) => { e.currentTarget.value = formatPhone(e.currentTarget.value) }} /></label><label className="field-full">Serviço de interesse<select name="servico" defaultValue=""><option value="" disabled>Selecione uma opção</option><option>Desenvolvimento Web / Landing Page</option><option>Tecnologia NFC</option><option>Automação de processos</option><option>Suporte e soluções de TI</option><option>Outro projeto</option></select></label><label className="field-full">Mensagem<textarea name="mensagem" rows={4} placeholder="Conte um pouco sobre o seu projeto" /></label><div className="form-submit"><button className="button-primary" type="submit">Solicitar orçamento <ArrowRight size={17} aria-hidden="true" /></button><p><MessageCircle size={15} aria-hidden="true" />Você será direcionado ao WhatsApp com a mensagem pronta.</p></div></form></div></section>
-
-    <button className="whatsapp-float" type="button" onClick={openQuoteWhatsApp} aria-label="Conversar no WhatsApp"><MessageCircle size={26} aria-hidden="true" /></button>
-
-    <footer><div className="container footer-grid"><div className="footer-brand"><Logo light /><p>Soluções em tecnologia, desenvolvimento web e inovação digital para empresas de todo o Brasil.</p><div className="socials"><a href="https://instagram.com/anviti.tecnologia" target="_blank" rel="noreferrer" aria-label="Instagram"><InstagramIcon /></a><a href="https://wa.me/5527995830403" target="_blank" rel="noreferrer" aria-label="WhatsApp"><MessageCircle size={15} aria-hidden="true" /></a><a href="mailto:anviti.tecnologia@gmail.com" aria-label="E-mail"><Mail size={15} aria-hidden="true" /></a></div></div><nav className="footer-col" aria-label="Navegação do rodapé"><p className="footer-heading">Navegação</p><ul>{navItems.map(([label, id]) => <li key={id}><a href={`#${id}`}>{label}</a></li>)}</ul></nav><div className="footer-col"><p className="footer-heading">Serviços</p><ul>{services.map((service) => <li key={service.title}><a href="#servicos">{service.title}</a></li>)}</ul></div><div className="footer-col"><p className="footer-heading">Contato</p><ul className="footer-contact"><li><a href="https://wa.me/5527995830403" target="_blank" rel="noreferrer"><MessageCircle size={15} aria-hidden="true" />(27) 99583-0403</a></li><li><a href="mailto:anviti.tecnologia@gmail.com"><Mail size={15} aria-hidden="true" />anviti.tecnologia@gmail.com</a></li><li><a href="https://instagram.com/anviti.tecnologia" target="_blank" rel="noreferrer"><InstagramIcon size={15} />@anviti.tecnologia</a></li><li><span><MapPin size={15} aria-hidden="true" />Atendimento em todo o Brasil</span></li></ul></div></div><div className="container footer-bottom"><span>© {new Date().getFullYear()} Anviti Tecnologia. Todos os direitos reservados.</span><span className="footer-slogan">Tecnologia que impulsiona o amanhã.</span><a className="back-to-top" href="#inicio"><ArrowUp size={14} aria-hidden="true" />Voltar ao topo</a></div></footer>
-  </main>
+  return (
+    <main>
+      <Header />
+      <Hero />
+      <Services />
+      <Why />
+      <About />
+      <Process />
+      <Contact />
+      <a className="whatsapp-float" href={whatsappUrl('Olá, gostaria de solicitar um orçamento para um projeto com a Anviti Tecnologia.')} target="_blank" rel="noreferrer" aria-label="Conversar no WhatsApp">
+        <MessageCircle size={26} aria-hidden="true" />
+      </a>
+      <Footer />
+      <RevealOnScroll />
+    </main>
+  )
 }
