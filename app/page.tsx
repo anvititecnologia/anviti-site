@@ -1,6 +1,7 @@
 import { MessageCircle } from 'lucide-react'
 import { About } from '@/components/about'
 import { Contact } from '@/components/contact'
+import { Faq } from '@/components/faq'
 import { Footer } from '@/components/footer'
 import { Header } from '@/components/header'
 import { Hero } from '@/components/hero'
@@ -19,6 +20,7 @@ export default function Page() {
       <Why />
       <About />
       <Process />
+      <Faq />
       <Contact />
       <a className="whatsapp-float" href={whatsappUrl('Olá, gostaria de solicitar um orçamento para um projeto com a Anviti Tecnologia.')} target="_blank" rel="noreferrer" aria-label="Conversar no WhatsApp">
         <MessageCircle size={26} aria-hidden="true" />
