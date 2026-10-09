@@ -85,6 +85,19 @@ export default function Page() {
   const [scrolled, setScrolled] = useState(false)
   const [active, setActive] = useState('inicio')
   useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
+    const closeOnDesktop = () => { if (window.innerWidth > 640) setOpen(false) }
+    document.body.style.overflow = 'hidden'
+    window.addEventListener('keydown', onKey)
+    window.addEventListener('resize', closeOnDesktop)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
+      window.removeEventListener('resize', closeOnDesktop)
+    }
+  }, [open])
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -107,7 +120,7 @@ export default function Page() {
     return () => observer.disconnect()
   }, [])
   return <main>
-    <header className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}><div className="container navbar-inner"><a className="navbar-brand" href="#inicio" aria-label="Anviti Tecnologia, voltar ao início"><Logo light /></a><nav className={open ? 'nav-links nav-open' : 'nav-links'}>{navItems.map(([label, id]) => <a key={id} href={`#${id}`} className={active === id ? 'is-active' : undefined} aria-current={active === id ? 'true' : undefined} onClick={() => setOpen(false)}>{label}</a>)}</nav><button className="menu-toggle" type="button" aria-expanded={open} onClick={() => setOpen(!open)} aria-label={open ? 'Fechar menu' : 'Abrir menu'}>{open ? <X /> : <Menu />}</button></div></header>
+    <header className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>{open && <div className="nav-backdrop" onClick={() => setOpen(false)} aria-hidden="true" />}<div className="container navbar-inner"><a className="navbar-brand" href="#inicio" aria-label="Anviti Tecnologia, voltar ao início"><Logo light /></a><nav id="menu-principal" className={open ? 'nav-links nav-open' : 'nav-links'}>{navItems.map(([label, id]) => <a key={id} href={`#${id}`} className={active === id ? 'is-active' : undefined} aria-current={active === id ? 'true' : undefined} onClick={() => { setActive(id); setOpen(false) }}>{label}</a>)}</nav><button className="menu-toggle" type="button" aria-expanded={open} aria-controls="menu-principal" onClick={() => setOpen(!open)} aria-label={open ? 'Fechar menu' : 'Abrir menu'}>{open ? <X /> : <Menu />}</button></div></header>
     <section className="hero" id="inicio"><div className="hero-backdrop" aria-hidden="true" />
       
       <div className="container hero-grid"><div className="hero-copy"><p className="eyebrow">ESTRATÉGIA + TECNOLOGIA = RESULTADOS</p><h1>Sua marca<br /><span>mais forte</span><br />no digital.</h1><p className="hero-text">Soluções completas em tecnologia, desenvolvimento web e inovação digital para empresas de qualquer segmento, em todo o Brasil.</p><ButtonLink>Fale com a gente</ButtonLink></div><div className="hero-photo" role="img" aria-label="Mascote da Anviti, um camaleão azul de óculos e camisa da empresa, acenando no escritório" /></div>
