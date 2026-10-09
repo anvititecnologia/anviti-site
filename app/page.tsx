@@ -7,7 +7,7 @@ const navy = '#061536'
 const blue = '#0050F5'
 const services = [
   { icon: MonitorSmartphone, eyebrow: 'PRESENÇA DIGITAL', title: 'Desenvolvimento Web', text: 'Sites e landing pages profissionais, responsivos e focados em conversão, com automação do atendimento via WhatsApp.', type: 'laptop', items: ['Sites institucionais e landing pages', 'Layout responsivo para celular', 'Páginas focadas em conversão', 'Atendimento automatizado no WhatsApp'], cta: 'Quero um site', message: 'Olá! Quero um site ou landing page para a minha empresa.' },
-  { icon: SmartphoneNfc, eyebrow: 'INOVAÇÃO NO FÍSICO', title: 'Tecnologia NFC', text: 'Plaquinhas e displays inteligentes para avaliações no Google e experiências digitais no ponto de venda.', type: 'phone', items: ['Plaquinhas NFC personalizadas', 'Displays para o ponto de venda', 'Acesso direto às avaliações no Google', 'Experiências digitais por aproximação'], cta: 'Quero plaquinhas NFC', message: 'Olá! Tenho interesse nas plaquinhas e displays NFC da Anviti.' },
+  { icon: SmartphoneNfc, eyebrow: 'INOVAÇÃO NO FÍSICO', title: 'Tecnologia NFC', text: 'Plaquinhas e displays inteligentes para avaliações no Google e experiências digitais no ponto de venda.', type: 'photo', items: ['Plaquinhas NFC personalizadas', 'Displays para o ponto de venda', 'Acesso direto às avaliações no Google', 'Experiências digitais por aproximação'], cta: 'Quero plaquinhas NFC', message: 'Olá! Tenho interesse nas plaquinhas e displays NFC da Anviti.' },
   { icon: Wrench, eyebrow: 'SUPORTE SOB DEMANDA', title: 'Soluções de TI', text: 'Automações, melhorias de processos e suporte digital personalizado para sua empresa operar com mais eficiência.', type: 'chart', items: ['Automação de processos', 'Melhoria de rotinas e fluxos', 'Suporte digital sob demanda', 'Atendimento personalizado'], cta: 'Falar sobre TI', message: 'Olá! Preciso de ajuda com automação, processos ou suporte de TI.' },
 ]
 const pillars = [
@@ -48,7 +48,7 @@ function sendContactForm(e: React.FormEvent<HTMLFormElement>) {
   window.open(whatsappUrl(lines.join('\n')), '_blank', 'noopener,noreferrer')
 }
 function Mockup({ type }: { type: string }) {
-  if (type === 'phone') return <div className="mockup-phone"><div className="phone-notch" /><div className="phone-top"><span>9:41</span><span>•••</span></div><div className="phone-logo">A<span>.</span></div><p>Avalie a gente<br /><b>no Google.</b></p><div className="phone-review" aria-hidden="true">★★★★★</div></div>
+  if (type === 'photo') return <img className="mockup-photo" src="/images/display-nfc-avaliacao-google.jpg" alt="Display de mesa com NFC e QR Code para avaliação no Google, produzido pela Anviti" loading="lazy" />
   if (type === 'laptop') return <div className="mockup-laptop"><div className="laptop-screen"><Logo light /><b>Seu negócio<br /><em>no próximo nível.</em></b><span className="screen-button">Fale conosco</span></div><div className="laptop-base" /></div>
   return <div className="mockup-chart"><div className="chart-head"><span>Processos que<br /><b>impulsionam.</b></span><BarChart3 size={22} /></div><div className="chart-tags"><span>Automação</span><span>Processos</span><span>Suporte</span></div><svg viewBox="0 0 240 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70 C30 58, 43 66, 63 50 S98 58, 119 36 S158 46, 178 22 S214 28, 240 6" fill="none" stroke={blue} strokeWidth="4" /><path d="M0 70 C30 58, 43 66, 63 50 S98 58, 119 36 S158 46, 178 22 S214 28, 240 6 V80 H0Z" fill="rgba(0,80,245,.16)" /></svg></div>
 }
