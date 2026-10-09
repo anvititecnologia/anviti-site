@@ -1,10 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import dynamic from 'next/dynamic'
 import { ArrowRight, BarChart3, Globe2, HeartHandshake, Mail, Menu, MessageCircle, Rocket, ShieldCheck, Target, X } from 'lucide-react'
-
-const Mascot3D = dynamic(() => import('@/components/mascot-3d'), { ssr: false })
 
 const navy = '#061536'
 const blue = '#0050F5'
@@ -74,9 +71,8 @@ export default function Page() {
   }, [])
   return <main>
     <section className="hero" id="inicio">
-      <div className="hero-orbit orbit-one" /><div className="hero-orbit orbit-two" />
       <header className={`navbar container ${scrolled ? 'navbar-scrolled' : ''}`}><a href="#inicio"><Logo light /></a><nav className={open ? 'nav-links nav-open' : 'nav-links'}>{navItems.map(([label, id]) => <a key={id} href={`#${id}`} onClick={() => setOpen(false)}>{label}</a>)}</nav><button className="button-primary" type="button" onClick={openQuoteWhatsApp}>Solicite um orçamento <ArrowRight size={17} aria-hidden="true" /></button><button className="menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? 'Fechar menu' : 'Abrir menu'}>{open ? <X /> : <Menu />}</button></header>
-      <div className="container hero-grid"><div className="hero-copy"><p className="eyebrow">ESTRATÉGIA + TECNOLOGIA = RESULTADOS</p><h1>Sua marca<br /><span>mais forte</span><br />no digital.</h1><p className="hero-text">Soluções completas em tecnologia, desenvolvimento web e inovação digital para empresas de qualquer segmento, em todo o Brasil.</p><ButtonLink>Fale com a gente</ButtonLink></div><div className="hero-mascot"><Mascot3D /></div></div>
+      <div className="container hero-grid"><div className="hero-copy"><p className="eyebrow">ESTRATÉGIA + TECNOLOGIA = RESULTADOS</p><h1>Sua marca<br /><span>mais forte</span><br />no digital.</h1><p className="hero-text">Soluções completas em tecnologia, desenvolvimento web e inovação digital para empresas de qualquer segmento, em todo o Brasil.</p><ButtonLink>Fale com a gente</ButtonLink></div><div className="hero-photo" role="img" aria-label="Mascote da Anviti, um camaleão azul de óculos e camisa da empresa, acenando no escritório" /></div>
     </section>
 
     <section className="section services" id="servicos"><div className="container"><div className="section-intro reveal"><div><p className="eyebrow dark">NOSSOS SERVIÇOS</p><h2>Mais visibilidade,<br />mais oportunidades.</h2></div><p>Da presença online à inovação no ponto de venda, a Anviti resolve demandas de tecnologia com agilidade, versatilidade e uma comunicação simples.</p></div><div className="services-grid">{services.map(({ icon: Icon, ...service }, index) => <article className="service-card reveal" key={service.title} style={{ transitionDelay: `${index * 120}ms` }}><div className="icon-box"><Icon size={25} /></div><p className="eyebrow dark">{service.eyebrow}</p><h3>{service.title}<ArrowRight size={18} /></h3><p>{service.text}</p><Mockup type={service.type} /></article>)}</div></div></section>
