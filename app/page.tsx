@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowRight, Check, CircleCheck, CodeXml, FileSpreadsheet, FileText, Layers, Mail, MapPin, Menu, MessageCircle, MessagesSquare, MonitorSmartphone, Puzzle, Quote, Rocket, SmartphoneNfc, Star, Workflow, Wrench, X, Zap } from 'lucide-react'
+import { ArrowRight, Check, CircleCheck, CodeXml, Compass, Cpu, FileSpreadsheet, FileText, Layers, Mail, MapPin, Menu, MessageCircle, MessagesSquare, MonitorSmartphone, Puzzle, Quote, Rocket, SmartphoneNfc, Star, TrendingUp, Workflow, Wrench, X, Zap } from 'lucide-react'
 
 const services = [
   { icon: MonitorSmartphone, eyebrow: 'PRESENÇA DIGITAL', title: 'Desenvolvimento Web', text: 'Sites e landing pages profissionais, responsivos e focados em conversão, com automação do atendimento via WhatsApp.', photo: { src: '/images/site-anviti-laptop.jpg', alt: 'Laptop exibindo o site da Anviti Tecnologia com o mascote camaleão' }, items: ['Sites institucionais e landing pages', 'Layout responsivo para celular', 'Páginas focadas em conversão', 'Atendimento automatizado no WhatsApp'], cta: 'Quero um site', message: 'Olá! Quero um site ou landing page para a minha empresa.' },
@@ -14,6 +14,11 @@ const pillars = [
   [Puzzle, 'Soluções completas', 'Do digital ao físico, conectamos ideias à realidade.'],
   [MapPin, 'Atendimento nacional', 'Parceria próxima e 100% digital para todo o Brasil.'],
 ]
+const aboutPoints = [
+  [Compass, 'Estratégia', 'Entendemos o seu negócio antes de propor qualquer solução.'],
+  [Cpu, 'Tecnologia', 'Ferramentas modernas, escolhidas para o momento da sua empresa.'],
+  [TrendingUp, 'Resultados', 'Soluções pensadas para fazer diferença no dia a dia.'],
+] as const
 const processSteps = [
   [MessagesSquare, 'Conversa', 'Você conta a sua necessidade pelo WhatsApp e a gente entende o seu negócio.'],
   [FileText, 'Proposta', 'Enviamos uma solução clara, com escopo, prazo e investimento definidos.'],
@@ -104,7 +109,7 @@ export default function Page() {
 
     <section className="why"><div className="container why-grid"><div className="reveal"><p className="eyebrow">POR QUE ESCOLHER A ANVITI?</p><h2>Tecnologia que<br />impulsiona o seu negócio.</h2><a className="button-primary why-cta" href={whatsappUrl('Olá! Quero conversar sobre uma solução de tecnologia para o meu negócio.')} target="_blank" rel="noreferrer">Fale com a gente <ArrowRight size={17} aria-hidden="true" /></a></div><div className="pillars">{pillars.map(([Icon, title, text], index) => <div className="pillar reveal" key={title as string} style={{ transitionDelay: `${index * 100}ms` }}><Icon size={22} /><h3>{title as string}</h3><p>{text as string}</p></div>)}</div></div></section>
 
-    <section className="section about" id="sobre"><div className="container about-grid reveal"><div><p className="eyebrow dark">SOBRE A ANVITI</p><h2>Tecnologia, estratégia e criatividade trabalhando juntas.</h2></div><div><p className="about-text">A Anviti Tecnologia ajuda empreendedores, comércios, prestadores de serviços e empresas de qualquer porte a modernizar sua presença, otimizar processos e oferecer experiências melhores aos seus clientes.</p><div className="about-points"><div><b>01</b><strong>ESTRATÉGIA</strong></div><div><b>02</b><strong>TECNOLOGIA</strong></div><div><b>03</b><strong>RESULTADOS</strong></div></div></div></div></section>
+    <section className="section about" id="sobre"><div className="container about-grid reveal"><div><p className="eyebrow dark">SOBRE A ANVITI</p><h2>Tecnologia, estratégia e criatividade trabalhando juntas.</h2></div><div><p className="about-text">A Anviti Tecnologia ajuda empreendedores, comércios, prestadores de serviços e empresas de qualquer porte a modernizar sua presença, otimizar processos e oferecer experiências melhores aos seus clientes.</p><div className="about-points">{aboutPoints.map(([Icon, title, text]) => <div key={title}><span className="about-point-icon"><Icon size={20} aria-hidden="true" /></span><strong>{title}</strong><p>{text}</p></div>)}</div></div></div></section>
 
     <section className="section process" id="como-trabalhamos"><div className="container"><div className="center-heading reveal"><p className="eyebrow dark">COMO TRABALHAMOS</p><h2>Do primeiro contato à entrega.</h2><p className="process-intro">Um processo simples e transparente, para você saber exatamente o que acontece em cada etapa.</p></div><ol className="process-grid">{processSteps.map(([Icon, title, text], index) => <li className="process-step reveal" key={title} style={{ transitionDelay: `${index * 100}ms` }}><div className="process-top"><span className="process-icon"><Icon size={22} aria-hidden="true" /></span><span className="process-number">0{index + 1}</span></div><h3>{title}</h3><p>{text}</p></li>)}</ol><div className="process-cta reveal"><a className="button-primary" href={whatsappUrl('Olá! Quero começar um projeto com a Anviti.')} target="_blank" rel="noreferrer">Começar pelo WhatsApp <ArrowRight size={17} aria-hidden="true" /></a></div></div></section>
 
