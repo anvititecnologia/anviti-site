@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { ArrowRight, Check, CircleCheck, FileSpreadsheet, Layers, Mail, MapPin, Menu, MessageCircle, MonitorSmartphone, Puzzle, SmartphoneNfc, Workflow, Wrench, X, Zap } from 'lucide-react'
+import { ArrowRight, Check, CircleCheck, FileSpreadsheet, Layers, Mail, MapPin, Menu, MessageCircle, MonitorSmartphone, Puzzle, Quote, SmartphoneNfc, Star, Workflow, Wrench, X, Zap } from 'lucide-react'
 
 const services = [
   { icon: MonitorSmartphone, eyebrow: 'PRESENÇA DIGITAL', title: 'Desenvolvimento Web', text: 'Sites e landing pages profissionais, responsivos e focados em conversão, com automação do atendimento via WhatsApp.', photo: { src: '/images/site-anviti-laptop.jpg', alt: 'Laptop exibindo o site da Anviti Tecnologia com o mascote camaleão' }, items: ['Sites institucionais e landing pages', 'Layout responsivo para celular', 'Páginas focadas em conversão', 'Atendimento automatizado no WhatsApp'], cta: 'Quero um site', message: 'Olá! Quero um site ou landing page para a minha empresa.' },
@@ -14,8 +14,18 @@ const pillars = [
   [Puzzle, 'Soluções completas', 'Do digital ao físico, conectamos ideias à realidade.'],
   [MapPin, 'Atendimento nacional', 'Parceria próxima e 100% digital para todo o Brasil.'],
 ]
-const navItems = [['Início', 'inicio'], ['Serviços', 'servicos'], ['Sobre', 'sobre'], ['Resultados', 'resultados'], ['Contato', 'contato']]
-const results = [['100%', 'atendimento digital'], ['BR', 'cobertura nacional'], ['2 frentes', 'digital e físico'], ['1 parceiro', 'para várias demandas de TI']]
+type Testimonial = { quote: string; name: string; company: string; service: string }
+// Depoimentos reais de clientes. Enquanto estiver vazia, o site publicado esconde a seção e o link do menu.
+const testimonials: Testimonial[] = []
+// Exemplos de layout, exibidos só no ambiente de desenvolvimento (localhost). Nunca vão para o site publicado.
+const previewTestimonials: Testimonial[] = [
+  { quote: 'Espaço para o depoimento real de um cliente de sites: como era antes, o que a Anviti entregou e o resultado percebido.', name: 'Nome do cliente', company: 'Empresa do cliente', service: 'Desenvolvimento Web' },
+  { quote: 'Espaço para o depoimento real de um cliente de NFC: como os clientes passaram a avaliar a empresa no Google.', name: 'Nome do cliente', company: 'Empresa do cliente', service: 'Tecnologia NFC' },
+  { quote: 'Espaço para o depoimento real de um cliente de TI: qual problema foi resolvido e como ficou o dia a dia.', name: 'Nome do cliente', company: 'Empresa do cliente', service: 'Soluções de TI' },
+]
+const isPreview = testimonials.length === 0 && process.env.NODE_ENV === 'development'
+const shownTestimonials = testimonials.length ? testimonials : isPreview ? previewTestimonials : []
+const navItems = [['Início', 'inicio'], ['Serviços', 'servicos'], ['Sobre', 'sobre'], ...(shownTestimonials.length ? [['Depoimentos', 'depoimentos']] : []), ['Contato', 'contato']]
 
 function InstagramIcon({ size = 15 }: { size?: number }) {
   return <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" /><circle cx="12" cy="12" r="4" /><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" /></svg>
@@ -90,7 +100,7 @@ export default function Page() {
 
     <section className="section about" id="sobre"><div className="container about-grid reveal"><div><p className="eyebrow dark">SOBRE A ANVITI</p><h2>Tecnologia, estratégia e criatividade trabalhando juntas.</h2></div><div><p className="about-text">A Anviti Tecnologia ajuda empreendedores, comércios, prestadores de serviços e empresas de qualquer porte a modernizar sua presença, otimizar processos e oferecer experiências melhores aos seus clientes.</p><div className="about-points"><div><b>01</b><strong>ESTRATÉGIA</strong></div><div><b>02</b><strong>TECNOLOGIA</strong></div><div><b>03</b><strong>RESULTADOS</strong></div></div></div></div></section>
 
-    <section className="section results" id="resultados"><div className="container"><div className="center-heading reveal"><p className="eyebrow dark">RESULTADOS QUE FALAM POR SI</p><h2>Empresas que crescem com a Anviti.</h2></div><div className="results-grid">{results.map(([number, label], index) => <div className="result reveal" key={label} style={{ transitionDelay: `${index * 100}ms` }}><strong>{number}</strong><span>{label}</span></div>)}</div></div></section>
+    {shownTestimonials.length > 0 && <section className="section testimonials" id="depoimentos"><div className="container"><div className="center-heading reveal"><p className="eyebrow dark">DEPOIMENTOS</p><h2>Quem confia na Anviti.</h2></div><div className="testimonials-grid">{shownTestimonials.map((item, index) => <figure className="testimonial reveal" key={index} style={{ transitionDelay: `${index * 100}ms` }}>{isPreview && <span className="testimonial-badge">Exemplo</span>}<Quote className="testimonial-quote" size={28} aria-hidden="true" /><div className="testimonial-stars" aria-hidden="true">{Array.from({ length: 5 }, (_, i) => <Star key={i} size={15} />)}</div><blockquote>{item.quote}</blockquote><figcaption><span className="testimonial-avatar" aria-hidden="true">{item.name.split(' ').map((word) => word[0]).slice(0, 2).join('').toUpperCase()}</span><span><strong>{item.name}</strong><small>{item.company} · {item.service}</small></span></figcaption></figure>)}</div></div></section>}
 
     <section className="contact-section" id="contato"><div className="container contact-grid reveal"><div><p className="eyebrow">VAMOS CONVERSAR?</p><h2>O próximo passo<br />pode ser o seu <span>maior resultado.</span></h2><p>Conte com a Anviti para tirar sua ideia do papel, modernizar seu negócio ou resolver sua próxima demanda de tecnologia.</p><div className="contact-details"><a href="https://wa.me/5527995830403" target="_blank" rel="noreferrer">WhatsApp: (27) 99583-0403</a><a href="mailto:anviti.tecnologia@gmail.com">anviti.tecnologia@gmail.com</a><a href="https://instagram.com/anviti.tecnologia" target="_blank" rel="noreferrer">@anviti.tecnologia</a></div></div><form onSubmit={sendContactForm}><label>Nome<input name="nome" required autoComplete="name" placeholder="Como podemos chamar você?" /></label><label>Empresa<input name="empresa" autoComplete="organization" placeholder="Nome da empresa" /></label><label>E-mail<input name="email" required type="email" autoComplete="email" placeholder="seu@email.com" /></label><label>WhatsApp<input name="whatsapp" type="tel" autoComplete="tel" placeholder="(00) 00000-0000" /></label><label>Serviço de interesse<select name="servico" defaultValue=""><option value="" disabled>Selecione uma opção</option><option>Desenvolvimento Web / Landing Page</option><option>Tecnologia NFC</option><option>Automação de processos</option><option>Suporte e soluções de TI</option><option>Outro projeto</option></select></label><label>Mensagem<textarea name="mensagem" rows={4} placeholder="Conte um pouco sobre o seu projeto" /></label><button className="button-primary" type="submit">Solicitar orçamento <ArrowRight size={17} /></button></form></div></section>
 
