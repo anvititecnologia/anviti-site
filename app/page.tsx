@@ -6,9 +6,9 @@ import { ArrowRight, BarChart3, HeartHandshake, Mail, Menu, MessageCircle, Monit
 const navy = '#061536'
 const blue = '#0050F5'
 const services = [
-  { icon: MonitorSmartphone, eyebrow: 'PRESENÇA DIGITAL', title: 'Desenvolvimento Web', text: 'Sites e landing pages profissionais, responsivos e focados em conversão, com automação do atendimento via WhatsApp.', type: 'laptop' },
-  { icon: SmartphoneNfc, eyebrow: 'INOVAÇÃO NO FÍSICO', title: 'Tecnologia NFC', text: 'Plaquinhas e displays inteligentes para avaliações no Google e experiências digitais no ponto de venda.', type: 'phone' },
-  { icon: Wrench, eyebrow: 'SUPORTE SOB DEMANDA', title: 'Soluções de TI', text: 'Automações, melhorias de processos e suporte digital personalizado para sua empresa operar com mais eficiência.', type: 'chart' },
+  { icon: MonitorSmartphone, eyebrow: 'PRESENÇA DIGITAL', title: 'Desenvolvimento Web', text: 'Sites e landing pages profissionais, responsivos e focados em conversão, com automação do atendimento via WhatsApp.', type: 'laptop', cta: 'Quero um site', message: 'Olá! Quero um site ou landing page para a minha empresa.' },
+  { icon: SmartphoneNfc, eyebrow: 'INOVAÇÃO NO FÍSICO', title: 'Tecnologia NFC', text: 'Plaquinhas e displays inteligentes para avaliações no Google e experiências digitais no ponto de venda.', type: 'phone', cta: 'Quero plaquinhas NFC', message: 'Olá! Tenho interesse nas plaquinhas e displays NFC da Anviti.' },
+  { icon: Wrench, eyebrow: 'SUPORTE SOB DEMANDA', title: 'Soluções de TI', text: 'Automações, melhorias de processos e suporte digital personalizado para sua empresa operar com mais eficiência.', type: 'chart', cta: 'Falar sobre TI', message: 'Olá! Preciso de ajuda com automação, processos ou suporte de TI.' },
 ]
 const pillars = [
   [Rocket, 'Agilidade', 'Respostas rápidas e soluções diretas, sem burocracia.'],
@@ -28,9 +28,11 @@ function Logo({ light = false }: { light?: boolean }) {
 function ButtonLink({ children, href = '#contato' }: { children: React.ReactNode; href?: string }) {
   return <a className="button-primary" href={href}>{children}<ArrowRight size={17} aria-hidden="true" /></a>
 }
+function whatsappUrl(message: string) {
+  return `https://wa.me/5527995830403?text=${encodeURIComponent(message)}`
+}
 function openQuoteWhatsApp() {
-  const message = encodeURIComponent('Olá, gostaria de solicitar um orçamento para um projeto com a Anviti Tecnologia.')
-  window.open(`https://wa.me/5527995830403?text=${message}`, '_blank', 'noopener,noreferrer')
+  window.open(whatsappUrl('Olá, gostaria de solicitar um orçamento para um projeto com a Anviti Tecnologia.'), '_blank', 'noopener,noreferrer')
 }
 function sendContactForm(e: React.FormEvent<HTMLFormElement>) {
   e.preventDefault()
@@ -43,7 +45,7 @@ function sendContactForm(e: React.FormEvent<HTMLFormElement>) {
     `E-mail: ${field('email')}`,
     field('whatsapp') && `WhatsApp: ${field('whatsapp')}`,
   ].filter(Boolean)
-  window.open(`https://wa.me/5527995830403?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener,noreferrer')
+  window.open(whatsappUrl(lines.join('\n')), '_blank', 'noopener,noreferrer')
 }
 function Mockup({ type }: { type: string }) {
   if (type === 'phone') return <div className="mockup-phone"><div className="phone-notch" /><div className="phone-top"><span>9:41</span><span>•••</span></div><div className="phone-logo">A<span>.</span></div><p>Avalie a gente<br /><b>no Google.</b></p><div className="phone-review" aria-hidden="true">★★★★★</div></div>
@@ -75,7 +77,7 @@ export default function Page() {
       <div className="container hero-grid"><div className="hero-copy"><p className="eyebrow">ESTRATÉGIA + TECNOLOGIA = RESULTADOS</p><h1>Sua marca<br /><span>mais forte</span><br />no digital.</h1><p className="hero-text">Soluções completas em tecnologia, desenvolvimento web e inovação digital para empresas de qualquer segmento, em todo o Brasil.</p><ButtonLink>Fale com a gente</ButtonLink></div><div className="hero-photo" role="img" aria-label="Mascote da Anviti, um camaleão azul de óculos e camisa da empresa, acenando no escritório" /></div>
     </section>
 
-    <section className="section services" id="servicos"><div className="container"><div className="section-intro reveal"><div><p className="eyebrow dark">NOSSOS SERVIÇOS</p><h2>Mais visibilidade,<br />mais oportunidades.</h2></div><p>Da presença online à inovação no ponto de venda, a Anviti resolve demandas de tecnologia com agilidade, versatilidade e uma comunicação simples.</p></div><div className="services-grid">{services.map(({ icon: Icon, ...service }, index) => <article className="service-card reveal" key={service.title} style={{ transitionDelay: `${index * 120}ms` }}><div className="icon-box"><Icon size={25} /></div><p className="eyebrow dark">{service.eyebrow}</p><h3>{service.title}<ArrowRight size={18} /></h3><p>{service.text}</p><div className="mockup-frame"><Mockup type={service.type} /></div></article>)}</div></div></section>
+    <section className="section services" id="servicos"><div className="container"><div className="section-intro reveal"><div><p className="eyebrow dark">NOSSOS SERVIÇOS</p><h2>Mais visibilidade,<br />mais oportunidades.</h2></div><p>Da presença online à inovação no ponto de venda, a Anviti resolve demandas de tecnologia com agilidade, versatilidade e uma comunicação simples.</p></div><div className="services-grid">{services.map(({ icon: Icon, ...service }, index) => <article className="service-card reveal" key={service.title} style={{ transitionDelay: `${index * 120}ms` }}><div className="icon-box"><Icon size={25} /></div><p className="eyebrow dark">{service.eyebrow}</p><h3>{service.title}</h3><p>{service.text}</p><a className="service-cta" href={whatsappUrl(service.message)} target="_blank" rel="noreferrer">{service.cta}<ArrowRight size={16} aria-hidden="true" /></a><div className="mockup-frame"><Mockup type={service.type} /></div></article>)}</div></div></section>
 
     <section className="why"><div className="container why-grid"><div className="reveal"><p className="eyebrow">POR QUE ESCOLHER A ANVITI?</p><h2>Tecnologia que<br />impulsiona o seu negócio.</h2></div><div className="pillars">{pillars.map(([Icon, title, text], index) => <div className="pillar reveal" key={title as string} style={{ transitionDelay: `${index * 100}ms` }}><Icon size={30} /><span>0{index + 1}</span><h3>{title as string}</h3><p>{text as string}</p></div>)}</div></div></section>
 
